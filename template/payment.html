@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Debit Card Payment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Additional styles */
+        .card-input {
+            width: calc(100% - 40px);
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 8px;
+        }
+    </style>
+    <!-- Custom Theme files -->
+    <link href="{% static 'css/bootstrap.css' %}" type="text/css" rel="stylesheet" media="all">
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="all">
+    <!-- font-awesome icons -->
+    <link href="{% static 'css/fontawesome-all.min.css' %}" rel="stylesheet">
+    <!-- //Custom Theme files -->
+    <!-- online-fonts -->
+    <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+    <!-- //online-fonts -->
+</head>
+
+<body>
+
+    <div class="inner-banner" id="home">
+        <!-- header -->
+        <header>
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-gradient-secondary pt-3">
+
+                    <h1>
+                        <a class="navbar-brand text-white" href="/">
+                            <img src="{% static 'images/logo.png' %}" class="img-fluid" alt="Responsive image" />traventure
+                            <span class="text-right">travel any time</span>
+                        </a>
+                    </h1>
+                    <button class="navbar-toggler ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-lg-auto text-center">
+                            <li class="nav-item mr-3">
+                                <a class="nav-link" href="/">Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  mr-3">
+                                <a class="nav-link" href="abo">about</a>
+                            </li>
+                            <li class="nav-item dropdown mr-3  active">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Services
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="serv">Services</a>
+                                    <a class="dropdown-item" href="gall">Gallery</a>
+<!--                                    <div class="dropdown-divider"></div>-->
+<!--                                    <a class="dropdown-item" href="typo.html">Typography</a>-->
+<!--                                    <a class="dropdown-item" href="error.html">404</a>-->
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="cont">contact</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary ml-lg-5 w3ls-btn"  href="/out" role="button">
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </div>
+        </header>
+        <!-- //header -->
+        <!-- fixed social icons -->
+        <div id="fixed-social">
+            <div>
+                <a href="#" class="fixed-facebook mb-2 rounded-right" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                    <span class="rounded-left">Facebook</span>
+                </a>
+            </div>
+            <div>
+                <a href="#" class="fixed-twitter mb-2 rounded-right" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                    <span class="rounded-left">Twitter</span>
+                </a>
+            </div>
+            <div>
+                <a href="#" class="fixed-gplus mb-2 rounded-right" target="_blank">
+                    <i class="fab fa-google-plus-g"></i>
+                    <span class="rounded-left">Google+</span>
+                </a>
+            </div>
+            <div>
+                <a href="#" class="fixed-linkedin mb-2 rounded-right" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span class="rounded-left">LinkedIn</span>
+                </a>
+            </div>
+            <div>
+                <a href="#" class="fixed-pintrest mb-2 rounded-right" target="_blank">
+                    <i class="fab fa-pinterest-p"></i>
+                    <span class="rounded-left">Pinterest</span>
+                </a>
+            </div>
+        </div>
+        <!-- //fixed social icons -->
+    </div>
+    <!-- //inner-banner -->
+    <!-- breadcrumbs -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Services</li>
+        </ol>
+    </nav>
+    
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h3 class="mb-4">Amount to be Paid: {{amount}}</h3>
+                <form action="/process_payment" method="post" class="p-5" style="border: solid 2px; border-radius: 10px; width: 600px;">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="card_number">Card Number</label>
+                        <input type="text" id="card_number" name="card_number" class="form-control card-input" placeholder="Enter card number"  required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="expiry_date">Expiration Date</label>
+                            <input type="text" id="expiry_date" name="expiry_date" class="form-control" placeholder="MM/YY" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="cvv">CVV</label>
+                            <input type="number" id="cvv" name="cvv" class="form-control" placeholder="Enter CVV" required>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-4">
+              <div class="col-justify-content-center ">
+                  <h5></h5>
+                  <img src="/static/images/visalogo.png" alt="Visa" class="payment-logo m-2" style="width: 60px; height: 30px;">
+                  <img src="/static/images/MasterCard_Logo.png" alt="MasterCard" class="payment-logo m-2"  style="width: 60px; height: 30px;">
+                  <img src="/static/images/gpaylogo.png" alt="Gpay" class="payment-logo m-2"  style="width: 60px;height: 30px; ">
+              </div>
+          </div>
+                    <button type="submit" class="btn btn-success btn-block">Pay Now</button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <br><br>
+    <footer class="py-sm-5">
+        <div class="container">
+            <div class="row py-5">
+                <!-- footer grid1 -->
+                <div class="col-lg-4 text-center">
+                    <h2>
+                        <a class="text-white" href="index.html">
+                            <img src="{% static 'images/logo.png' %}" class="img-fluid" alt="Responsive image" />traventure
+                            <span>travel any time</span>
+                        </a>
+                    </h2>
+                    <p class="mt-4">don't miss the chance..<br>enjoy your trip</p>
+                </div>
+                <!-- //footer gri12 -->
+                <!-- footer grid2 -->
+                <div class="col-lg-4  footv3-left text-center my-lg-0 my-5">
+                    <h3 class="mb-3">Get In Touch</h3>
+                    <p>travel any time<br>enjoy your world</p>
+
+                    <div class="fv3-contact mt-3">
+                        <address>
+                            <span class="fas fa-home mr-2"></span>
+                            <p>90 Street, City, State 34789.</p>
+                        </address>
+                    </div>
+                    <div class="fv3-contact my-3">
+                        <span class="fas fa-phone-volume mr-2"></span>
+                        <p>+456 123 7890</p>
+                    </div>
+                    <div class="fv3-contact">
+                        <span class="fas fa-envelope-open mr-2"></span>
+                        <p>
+                            <a href="mailto:example@email.com">info@example.com</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- //footer grid2 -->
+                <!-- footer grid3 -->
+                <div class="col-lg-4  footv3-left text-center">
+                    <h3 class="mb-3">Navigation</h3>
+                    <ul class="list-agileits">
+                        <li>
+                            <a href="index.html">
+                                Home
+                            </a>
+                        </li>
+                        <li class="my-3">
+                            <a href="about.html">
+                                About Us
+                            </a>
+                        </li>
+                        <li class="mb-3">
+                            <a href="services.html">
+                                Services
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contact.html">
+                                Contact Us
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //footer grid3 -->
+            </div>
+            <!-- //footer row -->
+            <div class="cpy-right text-center pb-sm-0 pb-5">
+                <p>© 2018 Traventure. All rights reserved | Design by
+                    <a href="http://w3layouts.com"> W3layouts.</a>
+                </p>
+            </div>
+        </div>
+        <!-- //footer container -->
+    </footer>
+
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
